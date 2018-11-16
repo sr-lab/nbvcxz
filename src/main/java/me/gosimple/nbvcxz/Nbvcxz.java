@@ -90,80 +90,85 @@ public class Nbvcxz
     {
         Configuration configuration = new ConfigurationBuilder().createConfiguration();
         Nbvcxz nbvcxz = new Nbvcxz(configuration);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("main", nbvcxz.getConfiguration().getLocale());
-        Scanner scanner = new Scanner(System.in);
+        // ResourceBundle resourceBundle = ResourceBundle.getBundle("main", nbvcxz.getConfiguration().getLocale());
+        // Scanner scanner = new Scanner(System.in);
 
-        String input;
+        // String input;
 
-        while (true)
-        {
-            System.out.println(resourceBundle.getString("main.startPrompt"));
-            System.out.println(resourceBundle.getString("main.enterCommand"));
-            input = scanner.nextLine();
-            if ("q".equals(input))
-            {
-                break;
-            }
-            if ("g".equals(input))
-            {
-                System.out.println(resourceBundle.getString("main.generatorType"));
-                input = scanner.nextLine();
-                if ("p".equals(input))
-                {
-                    System.out.println(resourceBundle.getString("main.delimiterPrompt"));
-                    String delimiter = scanner.nextLine();
-                    System.out.println(resourceBundle.getString("main.wordsPrompt"));
-                    while (!scanner.hasNextInt())
-                    {
-                        scanner.next();
-                    }
-                    int words = scanner.nextInt();
-                    scanner.nextLine();
-                    printGenerationInfo(nbvcxz, Generator.generatePassphrase(delimiter, words));
-                }
-                if ("r".equals(input))
-                {
-                    System.out.println(resourceBundle.getString("main.randomType"));
-                    Generator.CharacterTypes characterTypes = null;
-                    input = scanner.nextLine();
-                    if ("1".equals(input))
-                    {
-                        characterTypes = Generator.CharacterTypes.ALPHA;
-                    }
-                    if ("2".equals(input))
-                    {
-                        characterTypes = Generator.CharacterTypes.ALPHANUMERIC;
-                    }
-                    if ("3".equals(input))
-                    {
-                        characterTypes = Generator.CharacterTypes.ALPHANUMERICSYMBOL;
-                    }
-                    if ("4".equals(input))
-                    {
-                        characterTypes = Generator.CharacterTypes.NUMERIC;
-                    }
-                    if (characterTypes == null)
-                    {
-                        continue;
-                    }
-                    System.out.println(resourceBundle.getString("main.lengthPrompt"));
-                    while (!scanner.hasNextInt())
-                    {
-                        scanner.next();
-                    }
-                    int length = scanner.nextInt();
-                    scanner.nextLine();
-                    printGenerationInfo(nbvcxz, Generator.generateRandomPassword(characterTypes, length));
-                }
-            }
-            if ("e".equals(input))
-            {
-                System.out.println(resourceBundle.getString("main.estimatePrompt"));
-                String password = scanner.nextLine();
-                printEstimationInfo(nbvcxz, password);
-            }
+        for (int i = 0; i < args.length; i++) {
+            Result result = nbvcxz.estimate(args[i]);
+            System.out.println(result.getGuesses());
         }
-        System.out.println(resourceBundle.getString("main.quitPrompt") + " ");
+
+        // while (true)
+        // {
+        //     System.out.println(resourceBundle.getString("main.startPrompt"));
+        //     System.out.println(resourceBundle.getString("main.enterCommand"));
+        //     input = scanner.nextLine();
+        //     if ("q".equals(input))
+        //     {
+        //         break;
+        //     }
+        //     if ("g".equals(input))
+        //     {
+        //         System.out.println(resourceBundle.getString("main.generatorType"));
+        //         input = scanner.nextLine();
+        //         if ("p".equals(input))
+        //         {
+        //             System.out.println(resourceBundle.getString("main.delimiterPrompt"));
+        //             String delimiter = scanner.nextLine();
+        //             System.out.println(resourceBundle.getString("main.wordsPrompt"));
+        //             while (!scanner.hasNextInt())
+        //             {
+        //                 scanner.next();
+        //             }
+        //             int words = scanner.nextInt();
+        //             scanner.nextLine();
+        //             printGenerationInfo(nbvcxz, Generator.generatePassphrase(delimiter, words));
+        //         }
+        //         if ("r".equals(input))
+        //         {
+        //             System.out.println(resourceBundle.getString("main.randomType"));
+        //             Generator.CharacterTypes characterTypes = null;
+        //             input = scanner.nextLine();
+        //             if ("1".equals(input))
+        //             {
+        //                 characterTypes = Generator.CharacterTypes.ALPHA;
+        //             }
+        //             if ("2".equals(input))
+        //             {
+        //                 characterTypes = Generator.CharacterTypes.ALPHANUMERIC;
+        //             }
+        //             if ("3".equals(input))
+        //             {
+        //                 characterTypes = Generator.CharacterTypes.ALPHANUMERICSYMBOL;
+        //             }
+        //             if ("4".equals(input))
+        //             {
+        //                 characterTypes = Generator.CharacterTypes.NUMERIC;
+        //             }
+        //             if (characterTypes == null)
+        //             {
+        //                 continue;
+        //             }
+        //             System.out.println(resourceBundle.getString("main.lengthPrompt"));
+        //             while (!scanner.hasNextInt())
+        //             {
+        //                 scanner.next();
+        //             }
+        //             int length = scanner.nextInt();
+        //             scanner.nextLine();
+        //             printGenerationInfo(nbvcxz, Generator.generateRandomPassword(characterTypes, length));
+        //         }
+        //     }
+        //     if ("e".equals(input))
+        //     {
+        //         System.out.println(resourceBundle.getString("main.estimatePrompt"));
+        //         String password = scanner.nextLine();
+        //         printEstimationInfo(nbvcxz, password);
+        //     }
+        // }
+        // System.out.println(resourceBundle.getString("main.quitPrompt") + " ");
 
     }
 
